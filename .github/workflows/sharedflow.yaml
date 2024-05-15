@@ -24,5 +24,23 @@ jobs:
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.3.0
+      - name: Install Apigee CLI
+        run: |
+          curl -L https://raw.githubusercontent.com/apigee/apigeecli/main/downloadLatest.sh | sh -
+          echo "$HOME/.apigeecli/bin" >> $GITHUB_PATH
       - name: Create API bundle
-        run: zip -r proxy.zip apiproxy
+        run: zip -r sharedflow.zip sharedflowbundle
+        working-directory: sharedflowbundles/examplesharedflow
+      - name: Upload API proxy bundle
+        run: |
+          apigeecli sharedflows import --org se-apigee-playground \
+            -f sharedflowbundles/examplesharedflow \
+            --default-token
+      - name: Deploy Revision
+        run: |
+          apigeecli sharedflows deploy --org se-apigee-playground \
+            --name samplesharedflow \
+            --env dev \
+            --ovr \
+            --sa proxy-deployment@se-apigee-playground.iam.gserviceaccount.com \
+            --default-token
