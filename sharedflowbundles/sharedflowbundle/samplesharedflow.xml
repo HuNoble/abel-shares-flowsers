@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlowBundle revision="1" name="samplesharedflow">
+  <DisplayName/>
+  <Description/>
+  <CreatedAt>1715174177536</CreatedAt>
+  <LastModifiedAt>1715174215770</LastModifiedAt>
+  <Policies>
+    <Policy>AM-Test</Policy>
+  </Policies>
+  <SharedFlows>
+    <SharedFlow>default</SharedFlow>
+  </SharedFlows>
+  <subType>SharedFlow</subType>
+</SharedFlowBundle>
